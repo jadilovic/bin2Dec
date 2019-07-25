@@ -15,6 +15,9 @@ public class RemoveText {
 	System.out.println("Usage: java RemoveText stringRemove fileName");
 		System.exit(1);
 		}
+	
+	// Check if String
+	String name = args[0];
 		
 		// Check if source file exists
 		File sourceFile = new File(args[1]);
@@ -23,23 +26,31 @@ public class RemoveText {
 		System.exit(2);
 		}
 		
+		String s = "";
 		try (
 		// Create input and output files
 				Scanner input = new Scanner(sourceFile);
-				PrintWriter output = new PrintWriter(sourceFile);
 				) {
 					while (input.hasNext()) {
-						String s1 = input.nextLine();
-						System.out.println(args[0].toString() + " " + s1);
-						if(s1 == args[0])
-							s1.replace(s1, "");
-						String s2 = s1;
-						output.print(s2);
-					}
+						s +=  input.nextLine() + " ";
+						System.out.println(s);
+						}
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		s = s.replaceAll(name, "");
+		
+		try{
+			PrintWriter output = new PrintWriter(sourceFile);
+			System.out.println(s);
+			output.write(s);
+			output.close();
+		} catch (FileNotFoundException e){
+			e.printStackTrace();
+		}
+		
+		System.out.println("Complete");
 	}
 
 }
