@@ -3,6 +3,7 @@ package vjezbe;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ReformatCode {
@@ -21,21 +22,28 @@ public class ReformatCode {
 			System.exit(2);
 		}
 		
-		String s = "";
-		try{
+		ArrayList list = new ArrayList<>();
+		try {
 			Scanner input = new Scanner(code);
 			while(input.hasNext()){
 				String st = input.nextLine();
-				if(st.equals("{")){
-					s += st;
-					continue;
-				}
-					s += st + " \n";
+						list.add(st);
 			}
-			System.out.println(s);
-			File code2 = new File("Test.java");
-			PrintWriter output = new PrintWriter(code2);
-			output.print(s);
+			for(int i = 0; i < list.size(); i++){
+				System.out.println(list.get(i));
+			}
+			
+			PrintWriter output = new PrintWriter(code);
+			String tx = "";
+			for(int i = 0; i < list.size(); i++){
+				tx = list.get(i).toString();
+			    if(list.get(i).equals("{") || list.get(i).equals("}") || tx.charAt(0) == '/'){
+			    	output.println(list.get(i));
+			    	continue;
+			    }
+			    output.print(list.get(i) + " ");
+			}
+			//output.println(s);
 			output.close();
 			input.close();
 			
