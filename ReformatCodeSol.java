@@ -2,13 +2,14 @@ package vjezbe;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ReformatCodeSol {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		// Check java arguement usage
 		if (args.length != 1) {
@@ -40,8 +41,7 @@ public class ReformatCodeSol {
 			string1 = input.nextLine();
 			while (input.hasNext()) {
 				string2 = input.nextLine();
-				if (string2.length() > 0 && 
-					 string2.charAt(string2.length() - 1) == '{') {
+				if (string2.length() > 0 && string2.charAt(string2.length() - 1) == '{') {
 					list.add(string1.concat(" {"));
 					string1 = input.nextLine();
 				}
@@ -58,16 +58,11 @@ public class ReformatCodeSol {
 
 		
 			// Create an output file
-			PrintWriter output;
-			try {
-				output = new PrintWriter(file);
+			PrintWriter output = new PrintWriter(file);
 				for (int i = 0; i < list.size(); i++) {
 					output.println(list.get(i));
 				}
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			output.close();
 	}
 
 }
