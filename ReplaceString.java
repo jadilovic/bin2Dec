@@ -3,6 +3,7 @@ package vjezbe;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ReplaceString {
@@ -23,19 +24,23 @@ public class ReplaceString {
 		}
 		
 		Scanner input = new Scanner(file);
-		//PrintWriter output = new PrintWriter(file);
-		
+		//File target = new File("Triple.java");
+		//PrintWriter output = new PrintWriter(target);
+		ArrayList<String> text = new ArrayList<>();
 			while(input.hasNext()){
-				String word = input.next();
-				//if(word == args[1]){
-					word.replaceAll(args[1], args[2]);
-					//output.print(word);
-					
-				//	output.write(args[2]);
-				// }
-			}
+				String word = input.nextLine();
+				text.add(word.replaceAll(args[1], args[2]));
+				//output.println(text);
+				//text = word + "\n";
+				}
 			input.close();
-			// output.close();
+			
+			PrintWriter output = new PrintWriter(file);
+			for(int i = 0; i < text.size(); i++){
+				System.out.println(text.get(i));
+				output.println(text.get(i));
+			}
+			output.close();
 	}
 
 }
