@@ -16,6 +16,7 @@ public class hangmanGame {
 		 }
 		 
 		  Scanner input = new Scanner(file);
+		  Scanner input2 = new Scanner(System.in);
 		  String ans;
 		  ArrayList<String> words = new ArrayList<>();
 		  while(input.hasNext()){
@@ -42,7 +43,7 @@ public class hangmanGame {
 		    }
 		 
 		    System.out.print(">");
-		    char guess = input.next().charAt(0);
+		    char guess = input2.next().charAt(0);
 		 
 		    // Checking
 		    boolean miss = true;
@@ -71,9 +72,10 @@ public class hangmanGame {
 		   System.out.println("The word is " + String.valueOf(word)
 		     + ". You missed " + numberOfMisses + " time");
 		   System.out.print("Do you want to guess another word? Enter y or n>");
-		   ans = input.next();
+		   ans = input2.next();
 		  } while (ans.charAt(0) != 'n');
 		  input.close();
+		  input2.close();
 		 }
 		 
 		 public static int intRandom(int lowerBound, int upperBound) {
