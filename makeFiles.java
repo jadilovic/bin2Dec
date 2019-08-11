@@ -38,7 +38,7 @@ public class makeFiles {
 		File[] list = files.listFiles();
 		try{
 		for(File f: list){
-			System.out.println(f.getName());
+			System.out.println(f.getName() + " - " + f.getAbsolutePath());
 				if(f.getName().contains("Exercise")){
 					if(singleDigit(f)){
 						addZero(f);
@@ -51,10 +51,26 @@ public class makeFiles {
 	}
 
 	private static void addZero(File f) {
-		f.getName().replace("1_1", "01_01");
+		System.out.println("Add zero Method" + f.getAbsolutePath());
+		String replaceName;
+		char num1 = f.getName().charAt(8);
+		char num2 = f.getName().charAt(10);
+		String target = f.getName().substring(8);
+		replaceName = f.getName().replaceAll(target, 0 + num1 + "_" + 0 + num2);
+		
+		File f2 = new File("C:\\NewWorkspace\\Lekcija11\\src\\FirstDirectory\\" + replaceName);
+		f.renameTo(f2);
+	//	try {
+	//	} catch (FileNotFoundException e) {
+	//		// TODO Auto-generated catch block
+	//		e.printStackTrace();
+	//	}
+		System.out.println("f je path " + f.getAbsolutePath());
+		System.out.println("f2 je path " + f2.getAbsolutePath());
 	}
 
 	private static boolean singleDigit(File f) {
+		System.out.println("Single Digit Method");
 		if(f.getName().length() < 12)
 			return true;
 		else
