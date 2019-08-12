@@ -36,18 +36,40 @@ public class makeFiles {
 		}
 		
 		File[] list = files.listFiles();
+		
+		for(File f: list){
+			System.out.println(f.getName());
+			addText(f);
+		}
+		
 		try{
 		for(File f: list){
 			System.out.println(f.getName() + " - " + f.getAbsolutePath());
+			//addText(f);
 				if(f.getName().contains("Exercise")){
 					if(singleDigit(f)){
 						addZero(f);
-					}
+						}
 					}
 				}
 		} catch (NullPointerException ex){
 			System.out.println("No files found in the direcotry");
 		}
+		
+	}
+
+	private static void addText(File f) {
+		try {
+			PrintWriter output = new PrintWriter(f);
+			System.out.println("addText method");
+			output.print(f.getName());
+			output.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 	private static void addZero(File f) {
@@ -56,7 +78,9 @@ public class makeFiles {
 		char num1 = f.getName().charAt(8);
 		char num2 = f.getName().charAt(10);
 		String target = f.getName().substring(8);
-		replaceName = f.getName().replaceAll(target, 0 + num1 + "_" + 0 + num2);
+		String replace = String.valueOf("" + '0' + num1 + "_" + '0' + num2);
+		System.out.println("replace: " + replace);
+		replaceName = f.getName().replaceAll(target, replace);
 		
 		File f2 = new File("C:\\NewWorkspace\\Lekcija11\\src\\FirstDirectory\\" + replaceName);
 		f.renameTo(f2);
