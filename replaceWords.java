@@ -3,6 +3,7 @@ package vjezbe;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.Scanner;
 
 public class replaceWords {
 
@@ -37,6 +38,37 @@ public class replaceWords {
 			if(f.isFile() && f.getName().contains("Exercise") || f.getName().contains("Copy")){
 				addText(f);
 			}
+		}
+		
+		for(File f: list){
+			if(f.isFile() && f.getName().contains("Exercise")){
+				replaceText(f);
+			}
+		}
+		
+	}
+
+	private static void replaceText(File f) {
+		try {
+			Scanner input = new Scanner(f);
+			while(input.hasNext()){
+				String word = input.next();
+				if(word.length() < 13){
+					char num1 = word.charAt(8);
+					char num2 = word.charAt(10);
+					String target = word.substring(8);
+					String replace = String.valueOf("" + '0' + num1 + "_" + '0' + num2);
+					// System.out.println("replace: " + replace);
+					String replaceText = word.replaceAll(target, replace);
+					PrintWriter output = new PrintWriter(f);
+					output.print(replaceText);
+					output.close();
+				}
+			}
+			input.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}
