@@ -24,19 +24,20 @@ public class namePopular {
 			System.exit(0);
 		}
 		
-		ArrayList<Integer> rank = new ArrayList<>();
-		ArrayList<String> mName = new ArrayList<>();
-		ArrayList<Integer> mNumbers = new ArrayList<>();
-		ArrayList<String> fName = new ArrayList<>();
-		ArrayList<Integer> fNumbers = new ArrayList<>();
+		ArrayList<NameRanks> rankList = new ArrayList<>();
+		NameRanks nr = new NameRanks();
+		
 		try {
 			Scanner input2 = new Scanner(file);
+			
 				while(input2.hasNext()){
-					rank.add(input2.nextInt());
-					mName.add(input2.next());
-					mNumbers.add(input2.nextInt());
-					fName.add(input2.next());
-					fNumbers.add(input2.nextInt());
+					int rank = input2.nextInt();
+					String mName = input2.next();
+					int mNumbers = input2.nextInt();
+					String fName = input2.next();
+					int fNumbers = input2.nextInt();
+					nr = new NameRanks(rank, mName, mNumbers, fName, fNumbers);
+					rankList.add(nr);
 				}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -46,14 +47,17 @@ public class namePopular {
 	//	for(int i = 0; i < rank.size(); i++){
 	//		System.out.println(rank.get(i) + " " + mName.get(i) + " " + mNumbers.get(i) + " " + fName.get(i) + " " + fNumbers.get(i));
 	//	}
+		for(int i = 0; i < rankList.size(); i++){
+			System.out.println(rankList.get(i).toString());
+		}
 		
-		for(int i = 0; i < rank.size(); i++){
-			if(gender.equals("M") && mName.get(i).equals(name)){
-					System.out.println(name + " is ranked #" + rank.get(i) + " in year " + year);
+		for(int i = 0; i < rankList.size(); i++){
+			if(gender.equals("M") && rankList.get(i).getmName().equals(name)){
+					System.out.println(name + " is ranked #" + rankList.get(i).getRank() + " in year " + year);
 					System.exit(1);
 				}
-			if(gender.equals("F") && fName.get(i).equals(name)){
-				System.out.println(name + " is ranked #" + rank.get(i) + " in year " + year);
+			if(gender.equals("F") && rankList.get(i).getfName().equals(name)){
+				System.out.println(name + " is ranked #" + rankList.get(i).getRank() + " in year " + year);
 				System.exit(2);
 			}
 		}
