@@ -28,9 +28,9 @@ public class rankingSummary {
 			System.exit(2);
 		}
 		
-		System.out.println("______________________________________________________________________________________________________________________");
-		System.out.printf("'%-6s%-11s%-11s%-11s%-11s%-11s%-11s%-11s%-11s%-11s%-11s'\n", "Year", "Rank 1", "Rank 2", "Rank 3", "Rank 4", "Rank 5", "Rank 1", "Rank 2", "Rank 3", "Rank 4", "Rank 5");
-		System.out.println("______________________________________________________________________________________________________________________\n");
+		System.out.println("________________________________________________________________________________________________________________________________");
+		System.out.printf("'%-6s%-12s%-12s%-12s%-12s%-12s%-12s%-12s%-12s%-12s%-12s'\n", "Year", "Rank 1", "Rank 2", "Rank 3", "Rank 4", "Rank 5", "Rank 1", "Rank 2", "Rank 3", "Rank 4", "Rank 5");
+		System.out.print("__________________________________________________________________________________________________________________________________\n");
 		
 		for(File file: fileList){
 			if(file.isFile() && file.getName().contains("imena")){
@@ -40,9 +40,8 @@ public class rankingSummary {
 	}
 
 	private static void read(File file) {
-		ArrayList<String> fRanks = new ArrayList<>();
-		ArrayList<String> mRanks = new ArrayList<>();
-		
+		ArrayList<NameRanks> listRanks = new ArrayList<>();
+		NameRanks nr = null;
 		try {
 			Scanner input = new Scanner(file);
 			for(int i = 0; i < 5; i++){
@@ -51,32 +50,28 @@ public class rankingSummary {
 				int mNumbers = input.nextInt();
 				String fName = input.next();
 				int fNumbers = input.nextInt();
-				System.out.print(fName + " ");
-				fRanks.add(fName);
-				mRanks.add(mName);
+				nr = new NameRanks(rank, mName, mNumbers, fName, fNumbers);
+				listRanks.add(nr);
 			}
 			input.close();
-			System.out.println();
-		System.out.printf("%-6s", file.getName().substring(5));
-
-			//print(fRanks);
-			//print(mRanks);
-			//System.out.printf("\n");
+			
+			print(file.getName(), listRanks);
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		for(int i = 5; i < 5; i++){
-			System.out.print(fRanks.get(i) + " ");
-		}
 	}
 
-	public static void print(String[] ranks) {
-		
-		for(int i = 5; i < 5; i++){
-			System.out.print("test");
-			System.out.printf("%-11s", ranks[i]);
+	public static void print(String year, ArrayList<NameRanks> listRanks) {
+		year = year.substring(5, 9);
+		System.out.printf("%-7s", year);
+		for(int i = 0; i < 5; i++){
+			System.out.printf("%-12s", listRanks.get(i).getfName());
 		}
+		for(int i = 0; i < 5; i++){
+			System.out.printf("%-12s", listRanks.get(i).getmName());
+		}
+		System.out.println();
 	}
 }
